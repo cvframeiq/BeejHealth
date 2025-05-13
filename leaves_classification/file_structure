@@ -1,0 +1,449 @@
+.
+├── dataset
+│   ├── download_dataset.bash
+│   ├── test
+│   │   ├── 20231225_124653.jpg_rotated_270.jpg
+│   │   ├── 20231225_125219.jpg_adjusted.jpg
+│   │   ├── 20231225_125219.jpg_flipped_horizontal.jpg
+│   │   ├── 20231225_125219.jpg_flipped_vertical.jpg
+│   │   ├── 20231225_125219.jpg_rotated_270.jpg
+│   │   ├── 20231225_125219.jpg_rotated_90.jpg
+│   │   ├── 20231225_125248.jpg_adjusted.jpg
+│   │   ├── 20231225_125248.jpg_flipped_horizontal.jpg
+│   │   ├── 20231225_125248.jpg_flipped_vertical.jpg
+│   │   ├── 20231225_125248.jpg_rotated_270.jpg
+│   │   └── 20231225_125248.jpg_rotated_90.jpg
+│   ├── train
+│   │   ├── dead
+│   │   │   ├── 20231225_124541.jpg_adjusted.jpg
+│   │   │   ├── 20231225_124541.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_124541.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_124541.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_124541.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_124710.jpg_adjusted.jpg
+│   │   │   ├── 20231225_124710.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_124710.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_124710.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_124710.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125307.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125307.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125307.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125307.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125307.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125326.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125326.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125326.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125326.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125326.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125745.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125745.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125745.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125745.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125745.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125801.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125801.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125801.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125801.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125801.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125806.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125806.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125806.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125806.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125806.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125820.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125820.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125820.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125820.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125820.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125831.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125831.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125831.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125831.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125831.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_132832.jpg_adjusted.jpg
+│   │   │   ├── 20231225_132832.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_132832.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_132832.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_132832.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_132842.jpg_adjusted.jpg
+│   │   │   ├── 20231225_132842.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_132842.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_132842.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_132842.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_132849.jpg_adjusted.jpg
+│   │   │   ├── 20231225_132849.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_132849.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_132849.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_132849.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_132904.jpg_adjusted.jpg
+│   │   │   ├── 20231225_132904.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_132904.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_132904.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_132904.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_132931.jpg_adjusted.jpg
+│   │   │   ├── 20231225_132931.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_132931.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_132931.jpg_rotated_270.jpg
+│   │   │   └── 20231225_132931.jpg_rotated_90.jpg
+│   │   ├── healthy
+│   │   │   ├── 20231225_124611.jpg_adjusted.jpg
+│   │   │   ├── 20231225_124611.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_124611.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_124611.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_124611.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_124638.jpg_adjusted.jpg
+│   │   │   ├── 20231225_124638.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_124638.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_124638.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_124638.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_124653.jpg_adjusted.jpg
+│   │   │   ├── 20231225_124653.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_124653.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_124653.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_124653.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125219.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125219.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125219.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125219.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125219.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125248.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125248.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125248.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125248.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125248.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125313.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125313.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125313.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125313.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125313.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125334.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125334.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125334.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125334.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125334.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125722.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125722.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125722.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125722.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125722.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125732.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125732.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125732.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125732.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125732.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125736.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125736.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125736.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125736.jpg_rotated_270.jpg
+│   │   │   ├── 20231225_125736.jpg_rotated_90.jpg
+│   │   │   ├── 20231225_125849.jpg_adjusted.jpg
+│   │   │   ├── 20231225_125849.jpg_flipped_horizontal.jpg
+│   │   │   ├── 20231225_125849.jpg_flipped_vertical.jpg
+│   │   │   ├── 20231225_125849.jpg_rotated_270.jpg
+│   │   │   └── 20231225_125849.jpg_rotated_90.jpg
+│   │   └── unhealthy
+│   │       ├── 20231225_124204.jpg_adjusted.jpg
+│   │       ├── 20231225_124204.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_124204.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_124204.jpg_rotated_270.jpg
+│   │       ├── 20231225_124204.jpg_rotated_90.jpg
+│   │       ├── 20231225_124304.jpg_adjusted.jpg
+│   │       ├── 20231225_124304.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_124304.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_124304.jpg_rotated_270.jpg
+│   │       ├── 20231225_124304.jpg_rotated_90.jpg
+│   │       ├── 20231225_124309.jpg_adjusted.jpg
+│   │       ├── 20231225_124309.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_124309.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_124309.jpg_rotated_270.jpg
+│   │       ├── 20231225_124309.jpg_rotated_90.jpg
+│   │       ├── 20231225_124530.jpg_adjusted.jpg
+│   │       ├── 20231225_124530.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_124530.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_124530.jpg_rotated_270.jpg
+│   │       ├── 20231225_124530.jpg_rotated_90.jpg
+│   │       ├── 20231225_124625.jpg_adjusted.jpg
+│   │       ├── 20231225_124625.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_124625.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_124625.jpg_rotated_270.jpg
+│   │       ├── 20231225_124625.jpg_rotated_90.jpg
+│   │       ├── 20231225_124701.jpg_adjusted.jpg
+│   │       ├── 20231225_124701.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_124701.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_124701.jpg_rotated_270.jpg
+│   │       ├── 20231225_124701.jpg_rotated_90.jpg
+│   │       ├── 20231225_124723.jpg_adjusted.jpg
+│   │       ├── 20231225_124723.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_124723.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_124723.jpg_rotated_270.jpg
+│   │       ├── 20231225_124723.jpg_rotated_90.jpg
+│   │       ├── 20231225_125025.jpg_adjusted.jpg
+│   │       ├── 20231225_125025.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_125025.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_125025.jpg_rotated_270.jpg
+│   │       ├── 20231225_125025.jpg_rotated_90.jpg
+│   │       ├── 20231225_125036.jpg_adjusted.jpg
+│   │       ├── 20231225_125036.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_125036.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_125036.jpg_rotated_270.jpg
+│   │       ├── 20231225_125036.jpg_rotated_90.jpg
+│   │       ├── 20231225_125116.jpg_adjusted.jpg
+│   │       ├── 20231225_125116.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_125116.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_125116.jpg_rotated_270.jpg
+│   │       ├── 20231225_125116.jpg_rotated_90.jpg
+│   │       ├── 20231225_125147.jpg_adjusted.jpg
+│   │       ├── 20231225_125147.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_125147.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_125147.jpg_rotated_270.jpg
+│   │       ├── 20231225_125147.jpg_rotated_90.jpg
+│   │       ├── 20231225_125208.jpg_adjusted.jpg
+│   │       ├── 20231225_125208.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_125208.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_125208.jpg_rotated_270.jpg
+│   │       ├── 20231225_125208.jpg_rotated_90.jpg
+│   │       ├── 20231225_125226.jpg_adjusted.jpg
+│   │       ├── 20231225_125226.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_125226.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_125226.jpg_rotated_270.jpg
+│   │       ├── 20231225_125226.jpg_rotated_90.jpg
+│   │       ├── 20231225_125347.jpg_adjusted.jpg
+│   │       ├── 20231225_125347.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_125347.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_125347.jpg_rotated_270.jpg
+│   │       ├── 20231225_125347.jpg_rotated_90.jpg
+│   │       ├── 20231225_125358.jpg_adjusted.jpg
+│   │       ├── 20231225_125358.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_125358.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_125358.jpg_rotated_270.jpg
+│   │       ├── 20231225_125358.jpg_rotated_90.jpg
+│   │       ├── 20231225_125857.jpg_adjusted.jpg
+│   │       ├── 20231225_125857.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_125857.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_125857.jpg_rotated_270.jpg
+│   │       ├── 20231225_125857.jpg_rotated_90.jpg
+│   │       ├── 20231225_132922.jpg_adjusted.jpg
+│   │       ├── 20231225_132922.jpg_flipped_horizontal.jpg
+│   │       ├── 20231225_132922.jpg_flipped_vertical.jpg
+│   │       ├── 20231225_132922.jpg_rotated_270.jpg
+│   │       └── 20231225_132922.jpg_rotated_90.jpg
+│   └── val
+│       ├── dead
+│       │   ├── 20231225_124541.jpg_adjusted.jpg
+│       │   ├── 20231225_124541.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_124541.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_124541.jpg_rotated_270.jpg
+│       │   ├── 20231225_124541.jpg_rotated_90.jpg
+│       │   ├── 20231225_124710.jpg_adjusted.jpg
+│       │   ├── 20231225_124710.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_124710.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_124710.jpg_rotated_270.jpg
+│       │   ├── 20231225_124710.jpg_rotated_90.jpg
+│       │   ├── 20231225_125307.jpg_adjusted.jpg
+│       │   ├── 20231225_125307.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125307.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125307.jpg_rotated_270.jpg
+│       │   ├── 20231225_125307.jpg_rotated_90.jpg
+│       │   ├── 20231225_125326.jpg_adjusted.jpg
+│       │   ├── 20231225_125326.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125326.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125326.jpg_rotated_270.jpg
+│       │   ├── 20231225_125326.jpg_rotated_90.jpg
+│       │   ├── 20231225_125745.jpg_adjusted.jpg
+│       │   ├── 20231225_125745.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125745.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125745.jpg_rotated_270.jpg
+│       │   ├── 20231225_125745.jpg_rotated_90.jpg
+│       │   ├── 20231225_125801.jpg_adjusted.jpg
+│       │   ├── 20231225_125801.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125801.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125801.jpg_rotated_270.jpg
+│       │   ├── 20231225_125801.jpg_rotated_90.jpg
+│       │   ├── 20231225_125806.jpg_adjusted.jpg
+│       │   ├── 20231225_125806.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125806.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125806.jpg_rotated_270.jpg
+│       │   ├── 20231225_125806.jpg_rotated_90.jpg
+│       │   ├── 20231225_125820.jpg_adjusted.jpg
+│       │   ├── 20231225_125820.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125820.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125820.jpg_rotated_270.jpg
+│       │   ├── 20231225_125820.jpg_rotated_90.jpg
+│       │   ├── 20231225_125831.jpg_adjusted.jpg
+│       │   ├── 20231225_125831.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125831.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125831.jpg_rotated_270.jpg
+│       │   ├── 20231225_125831.jpg_rotated_90.jpg
+│       │   ├── 20231225_132832.jpg_adjusted.jpg
+│       │   ├── 20231225_132832.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_132832.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_132832.jpg_rotated_270.jpg
+│       │   ├── 20231225_132832.jpg_rotated_90.jpg
+│       │   ├── 20231225_132842.jpg_adjusted.jpg
+│       │   ├── 20231225_132842.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_132842.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_132842.jpg_rotated_270.jpg
+│       │   ├── 20231225_132842.jpg_rotated_90.jpg
+│       │   ├── 20231225_132849.jpg_adjusted.jpg
+│       │   ├── 20231225_132849.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_132849.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_132849.jpg_rotated_270.jpg
+│       │   ├── 20231225_132849.jpg_rotated_90.jpg
+│       │   ├── 20231225_132904.jpg_adjusted.jpg
+│       │   ├── 20231225_132904.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_132904.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_132904.jpg_rotated_270.jpg
+│       │   ├── 20231225_132904.jpg_rotated_90.jpg
+│       │   ├── 20231225_132931.jpg_adjusted.jpg
+│       │   ├── 20231225_132931.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_132931.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_132931.jpg_rotated_270.jpg
+│       │   └── 20231225_132931.jpg_rotated_90.jpg
+│       ├── healthy
+│       │   ├── 20231225_124611.jpg_adjusted.jpg
+│       │   ├── 20231225_124611.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_124611.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_124611.jpg_rotated_270.jpg
+│       │   ├── 20231225_124611.jpg_rotated_90.jpg
+│       │   ├── 20231225_124638.jpg_adjusted.jpg
+│       │   ├── 20231225_124638.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_124638.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_124638.jpg_rotated_270.jpg
+│       │   ├── 20231225_124638.jpg_rotated_90.jpg
+│       │   ├── 20231225_124653.jpg_adjusted.jpg
+│       │   ├── 20231225_124653.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_124653.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_124653.jpg_rotated_270.jpg
+│       │   ├── 20231225_124653.jpg_rotated_90.jpg
+│       │   ├── 20231225_125219.jpg_adjusted.jpg
+│       │   ├── 20231225_125219.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125219.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125219.jpg_rotated_270.jpg
+│       │   ├── 20231225_125219.jpg_rotated_90.jpg
+│       │   ├── 20231225_125248.jpg_adjusted.jpg
+│       │   ├── 20231225_125248.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125248.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125248.jpg_rotated_270.jpg
+│       │   ├── 20231225_125248.jpg_rotated_90.jpg
+│       │   ├── 20231225_125313.jpg_adjusted.jpg
+│       │   ├── 20231225_125313.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125313.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125313.jpg_rotated_270.jpg
+│       │   ├── 20231225_125313.jpg_rotated_90.jpg
+│       │   ├── 20231225_125334.jpg_adjusted.jpg
+│       │   ├── 20231225_125334.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125334.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125334.jpg_rotated_270.jpg
+│       │   ├── 20231225_125334.jpg_rotated_90.jpg
+│       │   ├── 20231225_125722.jpg_adjusted.jpg
+│       │   ├── 20231225_125722.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125722.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125722.jpg_rotated_270.jpg
+│       │   ├── 20231225_125722.jpg_rotated_90.jpg
+│       │   ├── 20231225_125732.jpg_adjusted.jpg
+│       │   ├── 20231225_125732.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125732.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125732.jpg_rotated_270.jpg
+│       │   ├── 20231225_125732.jpg_rotated_90.jpg
+│       │   ├── 20231225_125736.jpg_adjusted.jpg
+│       │   ├── 20231225_125736.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125736.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125736.jpg_rotated_270.jpg
+│       │   ├── 20231225_125736.jpg_rotated_90.jpg
+│       │   ├── 20231225_125849.jpg_adjusted.jpg
+│       │   ├── 20231225_125849.jpg_flipped_horizontal.jpg
+│       │   ├── 20231225_125849.jpg_flipped_vertical.jpg
+│       │   ├── 20231225_125849.jpg_rotated_270.jpg
+│       │   └── 20231225_125849.jpg_rotated_90.jpg
+│       └── unhealthy
+│           ├── 20231225_124204.jpg_adjusted.jpg
+│           ├── 20231225_124204.jpg_flipped_horizontal.jpg
+│           ├── 20231225_124204.jpg_flipped_vertical.jpg
+│           ├── 20231225_124204.jpg_rotated_270.jpg
+│           ├── 20231225_124204.jpg_rotated_90.jpg
+│           ├── 20231225_124304.jpg_adjusted.jpg
+│           ├── 20231225_124304.jpg_flipped_horizontal.jpg
+│           ├── 20231225_124304.jpg_flipped_vertical.jpg
+│           ├── 20231225_124304.jpg_rotated_270.jpg
+│           ├── 20231225_124304.jpg_rotated_90.jpg
+│           ├── 20231225_124309.jpg_adjusted.jpg
+│           ├── 20231225_124309.jpg_flipped_horizontal.jpg
+│           ├── 20231225_124309.jpg_flipped_vertical.jpg
+│           ├── 20231225_124309.jpg_rotated_270.jpg
+│           ├── 20231225_124309.jpg_rotated_90.jpg
+│           ├── 20231225_124530.jpg_adjusted.jpg
+│           ├── 20231225_124530.jpg_flipped_horizontal.jpg
+│           ├── 20231225_124530.jpg_flipped_vertical.jpg
+│           ├── 20231225_124530.jpg_rotated_270.jpg
+│           ├── 20231225_124530.jpg_rotated_90.jpg
+│           ├── 20231225_124625.jpg_adjusted.jpg
+│           ├── 20231225_124625.jpg_flipped_horizontal.jpg
+│           ├── 20231225_124625.jpg_flipped_vertical.jpg
+│           ├── 20231225_124625.jpg_rotated_270.jpg
+│           ├── 20231225_124625.jpg_rotated_90.jpg
+│           ├── 20231225_124701.jpg_adjusted.jpg
+│           ├── 20231225_124701.jpg_flipped_horizontal.jpg
+│           ├── 20231225_124701.jpg_flipped_vertical.jpg
+│           ├── 20231225_124701.jpg_rotated_270.jpg
+│           ├── 20231225_124701.jpg_rotated_90.jpg
+│           ├── 20231225_124723.jpg_adjusted.jpg
+│           ├── 20231225_124723.jpg_flipped_horizontal.jpg
+│           ├── 20231225_124723.jpg_flipped_vertical.jpg
+│           ├── 20231225_124723.jpg_rotated_270.jpg
+│           ├── 20231225_124723.jpg_rotated_90.jpg
+│           ├── 20231225_125025.jpg_adjusted.jpg
+│           ├── 20231225_125025.jpg_flipped_horizontal.jpg
+│           ├── 20231225_125025.jpg_flipped_vertical.jpg
+│           ├── 20231225_125025.jpg_rotated_270.jpg
+│           ├── 20231225_125025.jpg_rotated_90.jpg
+│           ├── 20231225_125036.jpg_adjusted.jpg
+│           ├── 20231225_125036.jpg_flipped_horizontal.jpg
+│           ├── 20231225_125036.jpg_flipped_vertical.jpg
+│           ├── 20231225_125036.jpg_rotated_270.jpg
+│           ├── 20231225_125036.jpg_rotated_90.jpg
+│           ├── 20231225_125116.jpg_adjusted.jpg
+│           ├── 20231225_125116.jpg_flipped_horizontal.jpg
+│           ├── 20231225_125116.jpg_flipped_vertical.jpg
+│           ├── 20231225_125116.jpg_rotated_270.jpg
+│           ├── 20231225_125116.jpg_rotated_90.jpg
+│           ├── 20231225_125147.jpg_adjusted.jpg
+│           ├── 20231225_125147.jpg_flipped_horizontal.jpg
+│           ├── 20231225_125147.jpg_flipped_vertical.jpg
+│           ├── 20231225_125147.jpg_rotated_270.jpg
+│           ├── 20231225_125147.jpg_rotated_90.jpg
+│           ├── 20231225_125208.jpg_adjusted.jpg
+│           ├── 20231225_125208.jpg_flipped_horizontal.jpg
+│           ├── 20231225_125208.jpg_flipped_vertical.jpg
+│           ├── 20231225_125208.jpg_rotated_270.jpg
+│           ├── 20231225_125208.jpg_rotated_90.jpg
+│           ├── 20231225_125226.jpg_adjusted.jpg
+│           ├── 20231225_125226.jpg_flipped_horizontal.jpg
+│           ├── 20231225_125226.jpg_flipped_vertical.jpg
+│           ├── 20231225_125226.jpg_rotated_270.jpg
+│           ├── 20231225_125226.jpg_rotated_90.jpg
+│           ├── 20231225_125347.jpg_adjusted.jpg
+│           ├── 20231225_125347.jpg_flipped_horizontal.jpg
+│           ├── 20231225_125347.jpg_flipped_vertical.jpg
+│           ├── 20231225_125347.jpg_rotated_270.jpg
+│           ├── 20231225_125347.jpg_rotated_90.jpg
+│           ├── 20231225_125358.jpg_adjusted.jpg
+│           ├── 20231225_125358.jpg_flipped_horizontal.jpg
+│           ├── 20231225_125358.jpg_flipped_vertical.jpg
+│           ├── 20231225_125358.jpg_rotated_270.jpg
+│           ├── 20231225_125358.jpg_rotated_90.jpg
+│           ├── 20231225_125857.jpg_adjusted.jpg
+│           ├── 20231225_125857.jpg_flipped_horizontal.jpg
+│           ├── 20231225_125857.jpg_flipped_vertical.jpg
+│           ├── 20231225_125857.jpg_rotated_270.jpg
+│           ├── 20231225_125857.jpg_rotated_90.jpg
+│           ├── 20231225_132922.jpg_adjusted.jpg
+│           ├── 20231225_132922.jpg_flipped_horizontal.jpg
+│           ├── 20231225_132922.jpg_flipped_vertical.jpg
+│           ├── 20231225_132922.jpg_rotated_270.jpg
+│           └── 20231225_132922.jpg_rotated_90.jpg
+├── file_structure
+├── main.py
+├── resnet50_classification.pth
+└── test.py
+
+11 directories, 436 files
