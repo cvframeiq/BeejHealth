@@ -1,0 +1,25 @@
+# Model files (size bahut badi — GitHub pe mat daalna)
+ai_service/models/*.pth
+ai_service/models/*.pt
+ai_service/models/*.onnx
+ai_service/models/*.bin
+
+# Python
+ai_service/venv/
+ai_service/__pycache__/
+ai_service/logs/*.log
+__pycache__/
+*.pyc
+
+# Node.js
+node_modules/
+bh_prod_fixed/backend/data/*.db
+bh_prod_fixed/frontend/dist/
+
+# Env
+.env
+*.env
+
+# OS
+.DS_Store
+Thumbs.db

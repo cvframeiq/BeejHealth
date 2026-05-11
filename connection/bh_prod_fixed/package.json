@@ -1,0 +1,16 @@
+{
+  "name": "beejhealth",
+  "version": "3.0.0",
+  "private": true,
+  "scripts": {
+    "setup":   "npm install --prefix backend && npm install --prefix frontend",
+    "seed":    "npm run seed --prefix backend",
+    "dev":     "concurrently --names \"API,UI\" --prefix-colors \"green,cyan\" \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "build":   "npm run build --prefix frontend",
+    "start":   "npm run start --prefix backend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": { "node": ">=18.0.0" }
+}
