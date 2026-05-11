@@ -1,0 +1,553 @@
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+
+const savedLanguage = (() => {
+  try {
+    return localStorage.getItem('bh_language') || 'en';
+  } catch {
+    return 'en';
+  }
+})();
+
+const resources = {
+  en: {
+    translation: {
+      common: {
+        language: 'Language',
+        languages: { en: 'English', hi: 'Hindi', mr: 'Marathi' },
+      },
+      nav: {
+        publicLinks: [
+          { id: 'consultation', label: 'Crop Consultation' },
+          { id: 'experts', label: 'Experts' },
+          { id: 'support', label: 'Support' },
+        ],
+        auth: { login: 'Login', register: 'Register' },
+      },
+      home: {
+        hero: {
+          badge: "India's #1 AI Farming Platform - 50,000+ Farmers Trust Us",
+          titleLine1: 'Make Your Crop',
+          titleLine2: 'Smarter',
+          description: 'BeejHealth helps you detect crop disease instantly with AI, connect with certified experts in real time, get weather alerts, and manage your farm digitally.',
+          descriptionStrong: 'Start for free.',
+          primaryCta: 'Free Crop Scan',
+          secondaryCta: 'Find an Expert',
+          trustBadges: ['100% Secure', 'ICAR Certified', '3 Languages', 'Works Offline'],
+          stats: [
+            { value: '50K+', label: 'Farmers' },
+            { value: '200+', label: 'Experts' },
+            { value: '94%', label: 'Accuracy' },
+            { value: 'Rs 12Cr+', label: 'Saved' },
+          ],
+          demo: {
+            label: 'Live AI Analysis Demo',
+            crop: 'Coconut - Palakkad, Kerala',
+            title: 'Bud Rot Detected',
+            subtitle: 'Phytophthora palmivora - Stage 4/5',
+            confidence: 'AI Confidence',
+            urgency: 'Treatment Urgency',
+            urgencyValue: 'HIGH',
+            tags: ['Critical', 'EfficientNetV2-S', 'Expert Assigned'],
+            medicine: 'Ridomil MZ 72 WP - Apply immediately',
+            primaryCta: 'Try Free Scan',
+            secondaryCta: 'Book Expert',
+            liveStatus: '23 farmers currently online - 4 experts available',
+          },
+        },
+        achievements: [
+          { icon: '👨‍🌾', value: '50K+', label: 'Active Farmers' },
+          { icon: '👨‍⚕️', value: '200+', label: 'Certified Experts' },
+          { icon: '🎯', value: '94.3%', label: 'AI Accuracy' },
+          { icon: '🦠', value: '58+', label: 'Disease Classes' },
+          { icon: '🌾', value: '17', label: 'Crops Supported' },
+          { icon: '💰', value: 'Rs 12Cr+', label: 'Farmer Savings' },
+          { icon: '⭐', value: '4.9', label: 'App Rating' },
+          { icon: '🕐', value: '24/7', label: 'Expert Support' },
+        ],
+        howItWorks: {
+          title: 'How It Works',
+          subtitle: '3 easy steps - AI diagnosis in 30 seconds',
+          cta: 'Start Now - Free',
+          steps: [
+            { number: '01', icon: '📸', title: 'Take or Upload a Photo', description: 'Capture a clear crop photo from your camera or upload one from your gallery.', color: 'var(--g4)', bg: 'var(--gp)' },
+            { number: '02', icon: '🤖', title: 'Get Instant AI Diagnosis', description: 'Our EfficientNetV2 model detects diseases in seconds with high accuracy.', color: 'var(--b3)', bg: 'var(--bp)' },
+            { number: '03', icon: '👨‍⚕️', title: 'Receive Expert Advice', description: 'Certified agricultural experts review the report and share the treatment plan.', color: 'var(--a2)', bg: 'var(--ap)' },
+          ],
+        },
+        features: {
+          title: 'Complete Farming Platform',
+          subtitle: 'AI, experts, weather, market tools, and robots in one app',
+          items: [
+            { icon: '🤖', title: 'AI Disease Detection', description: 'Detect diseases across Indian crops in seconds.', tag: 'Free', bg: 'var(--gp)', tc: 'var(--g3)' },
+            { icon: '👨‍⚕️', title: 'Certified Expert Network', description: 'Talk to verified plant pathologists and crop specialists.', tag: 'Rs 300+', bg: 'var(--bp)', tc: 'var(--b2)' },
+            { icon: '🥥', title: 'Coconut Specialist AI', description: 'A dedicated model for coconut disease detection.', tag: 'New', bg: 'var(--ap)', tc: 'var(--a1)' },
+            { icon: '🌦️', title: 'Weather Intelligence', description: 'Disease alerts and spray timing with local weather insights.', tag: 'Live', bg: 'var(--tp)', tc: 'var(--t2)' },
+            { icon: '📊', title: 'Farm Analytics', description: 'Track farm health, crop history, and performance in one place.', tag: 'Pro', bg: 'var(--pup)', tc: 'var(--pu)' },
+            { icon: '🛒', title: 'AgriMart + Price Tracker', description: 'Discover recommended products and track mandi pricing.', tag: 'Live', bg: 'var(--gp)', tc: 'var(--g3)' },
+          ],
+        },
+        testimonials: {
+          title: 'Stories From Farmers',
+          subtitle: 'Farmers across India are already using BeejHealth to protect their crops',
+          items: [
+            { name: 'Ramesh Patil', location: 'Pune, Maharashtra', crop: 'Tomato', text: 'The AI flagged Early Blight quickly and helped me save my tomato crop.', savedLabel: 'Saved', savedValue: 'Rs 45,000' },
+            { name: 'Kavita Devi', location: 'Solapur, Maharashtra', crop: 'Cotton', text: 'I uploaded one photo and got a useful report in under a minute.', savedLabel: 'Saved', savedValue: 'Rs 62,000' },
+            { name: 'Priya Shinde', location: 'Nashik, Maharashtra', crop: 'Grape', text: 'The scan plus expert guidance helped me protect export quality this season.', savedLabel: 'Saved', savedValue: 'Rs 1,20,000' },
+          ],
+        },
+        crops: {
+          title: 'Crop Coverage',
+          subtitle: 'Specialized disease databases and treatment support for major crops',
+          items: [
+            { icon: '🍅', name: 'Tomato', count: '58 diseases' },
+            { icon: '🌾', name: 'Wheat', count: '24 diseases' },
+            { icon: '🥔', name: 'Potato', count: '31 diseases' },
+            { icon: '🌸', name: 'Cotton', count: '28 diseases' },
+            { icon: '🌽', name: 'Corn', count: '22 diseases' },
+            { icon: '🥥', name: 'Coconut', count: '8 AI classes', tag: 'NEW' },
+          ],
+        },
+        team: {
+          title: 'Our Team',
+          subtitle: 'Scientists, engineers, and field experts building better farming tools',
+          items: [
+            { initials: 'AS', name: 'Dr. Anjali Sharma', role: 'Founder & CEO', description: 'Ex-IARI scientist with 15 years in agricultural AI research', bg: 'var(--g4)' },
+            { initials: 'RM', name: 'Rahul Mehta', role: 'CTO', description: 'IIT Bombay graduate focused on ML and computer vision systems', bg: 'var(--b3)' },
+            { initials: 'PN', name: 'Dr. Priya Nair', role: 'Chief Agro Officer', description: 'Plant pathology specialist from Kerala Agricultural University', bg: 'var(--a2)' },
+            { initials: 'VS', name: 'Vikram Singh', role: 'Head of Operations', description: 'Farmer operations leader with deep rural network experience', bg: 'var(--g3)' },
+          ],
+        },
+        faqs: {
+          title: 'Frequently Asked Questions',
+          subtitle: 'Answers to the most common questions',
+          items: [
+            { question: 'How does BeejHealth work?', answer: 'You upload a crop photo, our AI analyses it, and experts help you with the next steps if needed.' },
+            { question: 'Is it free?', answer: 'The basic AI scan is free. Some expert services and advanced offerings are paid.' },
+            { question: 'Which crops are supported?', answer: 'The platform currently supports multiple major crops including tomato, wheat, cotton, corn, grape, and coconut.' },
+            { question: 'Is my farm data private?', answer: 'Yes. We treat uploaded photos and farm details as private data.' },
+          ],
+        },
+        contact: {
+          title: 'Talk To Us',
+          subtitle: 'Whether you are a farmer, an expert, or a business partner, our team is here to help.',
+          info: [
+            { icon: '📧', title: 'Email', value: 'support@beejhealth.com' },
+            { icon: '📱', title: 'WhatsApp / Phone', value: '+91 98765 43210' },
+            { icon: '📍', title: 'Office', value: 'Bandra Kurla Complex, Mumbai, Maharashtra 400051' },
+            { icon: '🕐', title: 'Support Hours', value: 'Mon-Sat: 8 AM - 8 PM IST' },
+          ],
+          socialLabel: 'Social Media',
+          formTitle: 'Enquiry Form',
+          doneTitle: 'Message Sent',
+          doneText: 'Our team will contact you within 24 hours.',
+          doneAction: 'Send Another',
+          typeLabel: 'Who are you?',
+          typeOptions: [
+            { value: 'farmer', label: 'Farmer' },
+            { value: 'expert', label: 'Become an Expert' },
+            { value: 'business', label: 'Business' },
+          ],
+          name: 'Name',
+          mobile: 'Mobile',
+          email: 'Email',
+          company: 'Company / Farm',
+          subject: 'Subject',
+          message: 'Message',
+          namePlaceholder: 'Your full name',
+          mobilePlaceholder: '10-digit mobile number',
+          emailPlaceholder: 'email@example.com',
+          companyPlaceholder: 'Optional',
+          messagePlaceholder: 'Share your question or message...',
+          topics: ['-- Select Topic --', 'Crop Disease Help', 'Expert Registration', 'B2B / Bulk Partnership', 'Investment / Funding', 'Technical Support', 'Media / Press', 'Other'],
+          submit: 'Send Message',
+          privacy: 'Your information is safe with us.',
+          alertRequired: 'Please enter your name and message.',
+        },
+        cta: {
+          title: 'Start Today',
+          subtitle: 'Join thousands of farmers already using BeejHealth for AI scans and expert support.',
+          primary: 'Free Crop Scan',
+          secondary: 'Register',
+          note: 'No credit card required - free basic access',
+        },
+        footer: {
+          description: 'India’s AI farming platform for crop disease detection, expert consultation, and weather guidance.',
+          certifiedBy: 'Certified By',
+          columns: [
+            { title: 'Platform', items: ['AI Scan', 'Expert Consult', 'Crop Forecast', 'AgriMart', 'Insurance', 'Robot Fleet'] },
+            { title: 'Company', items: ['About Us', 'Our Team', 'Careers', 'Press & Media', 'Blog', 'Investors'] },
+            { title: 'Support', items: ['Help Center', 'Video Tutorials', 'Terms of Service', 'Privacy Policy', 'Refund Policy', 'API Docs'] },
+            { title: 'Contact', items: ['support@beejhealth.com', '+91 98765 43210', 'WhatsApp Support', 'Mumbai, Maharashtra', 'Mon-Sat 8AM-8PM', 'Emergency: 24/7'] },
+          ],
+          copyright: '© 2026 BeejHealth Technologies Pvt. Ltd. All rights reserved.',
+          madeWith: 'Made for Indian farmers.',
+        },
+      },
+    },
+  },
+  hi: {
+    translation: {
+      common: { language: 'भाषा', languages: { en: 'अंग्रेज़ी', hi: 'हिंदी', mr: 'मराठी' } },
+      nav: {
+        publicLinks: [
+          { id: 'consultation', label: 'फसल सलाह' },
+          { id: 'experts', label: 'विशेषज्ञ' },
+          { id: 'support', label: 'सहायता' },
+        ],
+        auth: { login: 'लॉगिन', register: 'रजिस्टर' },
+      },
+      home: {
+        hero: {
+          badge: 'भारत का #1 AI फार्मिंग प्लेटफॉर्म - 50,000+ किसान भरोसा करते हैं',
+          titleLine1: 'अपनी फसल को',
+          titleLine2: 'स्मार्ट बनाइए',
+          description: 'BeejHealth आपको AI से तुरंत फसल रोग पहचानने, प्रमाणित विशेषज्ञों से रियल-टाइम सलाह लेने, मौसम अलर्ट पाने और अपनी खेती को डिजिटल रूप से संभालने में मदद करता है।',
+          descriptionStrong: 'मुफ्त में शुरू करें।',
+          primaryCta: 'मुफ्त फसल स्कैन',
+          secondaryCta: 'विशेषज्ञ खोजें',
+          trustBadges: ['100% सुरक्षित', 'ICAR प्रमाणित', '3 भाषाएँ', 'ऑफलाइन काम करता है'],
+          stats: [
+            { value: '50K+', label: 'किसान' },
+            { value: '200+', label: 'विशेषज्ञ' },
+            { value: '94%', label: 'सटीकता' },
+            { value: 'Rs 12Cr+', label: 'बचत' },
+          ],
+          demo: {
+            label: 'लाइव AI विश्लेषण डेमो',
+            crop: 'नारियल - पलक्कड़, केरल',
+            title: 'बड रॉट पाया गया',
+            subtitle: 'Phytophthora palmivora - स्टेज 4/5',
+            confidence: 'AI भरोसा',
+            urgency: 'उपचार की तात्कालिकता',
+            urgencyValue: 'उच्च',
+            tags: ['गंभीर', 'EfficientNetV2-S', 'विशेषज्ञ नियुक्त'],
+            medicine: 'Ridomil MZ 72 WP - तुरंत प्रयोग करें',
+            primaryCta: 'मुफ्त स्कैन आज़माएँ',
+            secondaryCta: 'विशेषज्ञ बुक करें',
+            liveStatus: '23 किसान अभी ऑनलाइन हैं - 4 विशेषज्ञ उपलब्ध हैं',
+          },
+        },
+        achievements: [
+          { icon: '👨‍🌾', value: '50K+', label: 'सक्रिय किसान' },
+          { icon: '👨‍⚕️', value: '200+', label: 'प्रमाणित विशेषज्ञ' },
+          { icon: '🎯', value: '94.3%', label: 'AI सटीकता' },
+          { icon: '🦠', value: '58+', label: 'रोग वर्ग' },
+          { icon: '🌾', value: '17', label: 'समर्थित फसलें' },
+          { icon: '💰', value: 'Rs 12Cr+', label: 'किसान बचत' },
+          { icon: '⭐', value: '4.9', label: 'ऐप रेटिंग' },
+          { icon: '🕐', value: '24/7', label: 'विशेषज्ञ सहायता' },
+        ],
+        howItWorks: {
+          title: 'यह कैसे काम करता है',
+          subtitle: '3 आसान चरण - 30 सेकंड में AI निदान',
+          cta: 'अभी शुरू करें - मुफ्त',
+          steps: [
+            { number: '01', icon: '📸', title: 'फोटो लें या अपलोड करें', description: 'अपनी फसल की साफ फोटो कैमरे से लें या गैलरी से अपलोड करें।', color: 'var(--g4)', bg: 'var(--gp)' },
+            { number: '02', icon: '🤖', title: 'तुरंत AI निदान पाएँ', description: 'EfficientNetV2 मॉडल कुछ ही सेकंड में बीमारी पहचानता है।', color: 'var(--b3)', bg: 'var(--bp)' },
+            { number: '03', icon: '👨‍⚕️', title: 'विशेषज्ञ सलाह लें', description: 'प्रमाणित कृषि विशेषज्ञ रिपोर्ट देखकर उपचार योजना साझा करते हैं।', color: 'var(--a2)', bg: 'var(--ap)' },
+          ],
+        },
+        features: {
+          title: 'पूरा फार्मिंग प्लेटफॉर्म',
+          subtitle: 'AI, विशेषज्ञ, मौसम, बाजार और रोबोट - सब एक ही ऐप में',
+          items: [
+            { icon: '🤖', title: 'AI रोग पहचान', description: 'भारतीय फसलों में रोगों की तेज पहचान।', tag: 'मुफ्त', bg: 'var(--gp)', tc: 'var(--g3)' },
+            { icon: '👨‍⚕️', title: 'प्रमाणित विशेषज्ञ नेटवर्क', description: 'सत्यापित पौध रोग विशेषज्ञों और कृषि सलाहकारों से बात करें।', tag: 'Rs 300+', bg: 'var(--bp)', tc: 'var(--b2)' },
+            { icon: '🥥', title: 'नारियल विशेषज्ञ AI', description: 'नारियल रोग पहचान के लिए समर्पित मॉडल।', tag: 'नया', bg: 'var(--ap)', tc: 'var(--a1)' },
+            { icon: '🌦️', title: 'मौसम इंटेलिजेंस', description: 'स्थानीय मौसम के साथ रोग अलर्ट और स्प्रे समय जानकारी।', tag: 'लाइव', bg: 'var(--tp)', tc: 'var(--t2)' },
+            { icon: '📊', title: 'फार्म एनालिटिक्स', description: 'फसल इतिहास और खेत की स्थिति एक ही जगह देखें।', tag: 'प्रो', bg: 'var(--pup)', tc: 'var(--pu)' },
+            { icon: '🛒', title: 'एग्रीमार्ट + भाव ट्रैकर', description: 'सुझाए गए उत्पाद और मंडी भाव ट्रैक करें।', tag: 'लाइव', bg: 'var(--gp)', tc: 'var(--g3)' },
+          ],
+        },
+        testimonials: {
+          title: 'किसानों की कहानियाँ',
+          subtitle: 'देशभर के किसान BeejHealth से अपनी फसल बचा रहे हैं',
+          items: [
+            { name: 'रमेश पाटिल', location: 'पुणे, महाराष्ट्र', crop: 'टमाटर', text: 'AI ने जल्दी बीमारी पहचानी और मेरी टमाटर फसल बचाने में मदद की।', savedLabel: 'बचत', savedValue: 'Rs 45,000' },
+            { name: 'कविता देवी', location: 'सोलापुर, महाराष्ट्र', crop: 'कपास', text: 'मैंने एक फोटो अपलोड की और एक मिनट से कम में उपयोगी रिपोर्ट मिल गई।', savedLabel: 'बचत', savedValue: 'Rs 62,000' },
+            { name: 'प्रिया शिंदे', location: 'नाशिक, महाराष्ट्र', crop: 'अंगूर', text: 'स्कैन और विशेषज्ञ सलाह से इस सीज़न में गुणवत्ता सुरक्षित रही।', savedLabel: 'बचत', savedValue: 'Rs 1,20,000' },
+          ],
+        },
+        crops: {
+          title: 'फसल कवरेज',
+          subtitle: 'मुख्य फसलों के लिए विशेषज्ञ रोग डेटाबेस और उपचार सहायता',
+          items: [
+            { icon: '🍅', name: 'टमाटर', count: '58 रोग' },
+            { icon: '🌾', name: 'गेहूं', count: '24 रोग' },
+            { icon: '🥔', name: 'आलू', count: '31 रोग' },
+            { icon: '🌸', name: 'कपास', count: '28 रोग' },
+            { icon: '🌽', name: 'मक्का', count: '22 रोग' },
+            { icon: '🥥', name: 'नारियल', count: '8 AI वर्ग', tag: 'नया' },
+          ],
+        },
+        team: {
+          title: 'हमारी टीम',
+          subtitle: 'वैज्ञानिक, इंजीनियर और फील्ड विशेषज्ञ मिलकर बेहतर खेती टूल बना रहे हैं',
+          items: [
+            { initials: 'AS', name: 'डॉ. अंजली शर्मा', role: 'संस्थापक और CEO', description: 'कृषि AI शोध में 15 साल का अनुभव', bg: 'var(--g4)' },
+            { initials: 'RM', name: 'राहुल मेहता', role: 'CTO', description: 'ML और कंप्यूटर विज़न सिस्टम पर केंद्रित तकनीकी नेतृत्व', bg: 'var(--b3)' },
+            { initials: 'PN', name: 'डॉ. प्रिया नायर', role: 'चीफ एग्रो ऑफिसर', description: 'प्लांट पैथोलॉजी विशेषज्ञ', bg: 'var(--a2)' },
+            { initials: 'VS', name: 'विक्रम सिंह', role: 'हेड ऑफ ऑपरेशंस', description: 'ग्रामीण नेटवर्क और किसान संचालन अनुभव', bg: 'var(--g3)' },
+          ],
+        },
+        faqs: {
+          title: 'अक्सर पूछे जाने वाले सवाल',
+          subtitle: 'सबसे आम सवालों के जवाब',
+          items: [
+            { question: 'BeejHealth कैसे काम करता है?', answer: 'आप फसल की फोटो अपलोड करते हैं, AI उसका विश्लेषण करता है और जरूरत होने पर विशेषज्ञ अगले कदम बताते हैं।' },
+            { question: 'क्या यह मुफ्त है?', answer: 'बेसिक AI स्कैन मुफ्त है। कुछ विशेषज्ञ सेवाएँ और उन्नत सुविधाएँ सशुल्क हैं।' },
+            { question: 'कौन-कौन सी फसलें समर्थित हैं?', answer: 'टमाटर, गेहूं, कपास, मक्का, अंगूर और नारियल जैसी कई प्रमुख फसलें समर्थित हैं।' },
+            { question: 'क्या मेरा डेटा सुरक्षित है?', answer: 'हाँ, आपकी फोटो और खेत की जानकारी को निजी डेटा की तरह संभाला जाता है।' },
+          ],
+        },
+        contact: {
+          title: 'हमसे बात करें',
+          subtitle: 'चाहे आप किसान हों, विशेषज्ञ हों या बिज़नेस पार्टनर, हमारी टीम मदद के लिए तैयार है।',
+          info: [
+            { icon: '📧', title: 'ईमेल', value: 'support@beejhealth.com' },
+            { icon: '📱', title: 'व्हाट्सऐप / फोन', value: '+91 98765 43210' },
+            { icon: '📍', title: 'ऑफिस', value: 'बांद्रा कुर्ला कॉम्प्लेक्स, मुंबई, महाराष्ट्र 400051' },
+            { icon: '🕐', title: 'सहायता समय', value: 'सोम-शनि: सुबह 8 बजे - रात 8 बजे IST' },
+          ],
+          socialLabel: 'सोशल मीडिया',
+          formTitle: 'पूछताछ फ़ॉर्म',
+          doneTitle: 'संदेश भेज दिया गया',
+          doneText: 'हमारी टीम 24 घंटे के भीतर आपसे संपर्क करेगी।',
+          doneAction: 'फिर से भेजें',
+          typeLabel: 'आप कौन हैं?',
+          typeOptions: [
+            { value: 'farmer', label: 'किसान' },
+            { value: 'expert', label: 'विशेषज्ञ बनें' },
+            { value: 'business', label: 'बिज़नेस' },
+          ],
+          name: 'नाम',
+          mobile: 'मोबाइल',
+          email: 'ईमेल',
+          company: 'कंपनी / फार्म',
+          subject: 'विषय',
+          message: 'संदेश',
+          namePlaceholder: 'आपका पूरा नाम',
+          mobilePlaceholder: '10 अंकों का मोबाइल नंबर',
+          emailPlaceholder: 'email@example.com',
+          companyPlaceholder: 'वैकल्पिक',
+          messagePlaceholder: 'अपना सवाल या संदेश लिखें...',
+          topics: ['-- विषय चुनें --', 'फसल रोग सहायता', 'विशेषज्ञ पंजीकरण', 'B2B / बल्क पार्टनरशिप', 'निवेश / फंडिंग', 'तकनीकी सहायता', 'मीडिया / प्रेस', 'अन्य'],
+          submit: 'संदेश भेजें',
+          privacy: 'आपकी जानकारी सुरक्षित है।',
+          alertRequired: 'कृपया नाम और संदेश भरें।',
+        },
+        cta: {
+          title: 'आज ही शुरू करें',
+          subtitle: 'हजारों किसानों के साथ जुड़ें जो BeejHealth से AI स्कैन और विशेषज्ञ सहायता ले रहे हैं।',
+          primary: 'मुफ्त फसल स्कैन',
+          secondary: 'रजिस्टर',
+          note: 'कोई क्रेडिट कार्ड नहीं - बेसिक एक्सेस मुफ्त',
+        },
+        footer: {
+          description: 'फसल रोग पहचान, विशेषज्ञ सलाह और मौसम मार्गदर्शन के लिए भारत का AI फार्मिंग प्लेटफॉर्म।',
+          certifiedBy: 'प्रमाणित द्वारा',
+          columns: [
+            { title: 'प्लेटफॉर्म', items: ['AI स्कैन', 'विशेषज्ञ सलाह', 'फसल पूर्वानुमान', 'एग्रीमार्ट', 'बीमा', 'रोबोट फ्लीट'] },
+            { title: 'कंपनी', items: ['हमारे बारे में', 'हमारी टीम', 'करियर', 'प्रेस और मीडिया', 'ब्लॉग', 'निवेशक'] },
+            { title: 'सहायता', items: ['हेल्प सेंटर', 'वीडियो ट्यूटोरियल', 'सेवा की शर्तें', 'गोपनीयता नीति', 'रिफंड नीति', 'API डॉक्स'] },
+            { title: 'संपर्क', items: ['support@beejhealth.com', '+91 98765 43210', 'व्हाट्सऐप सहायता', 'मुंबई, महाराष्ट्र', 'सोम-शनि 8AM-8PM', 'आपातकाल: 24/7'] },
+          ],
+          copyright: '© 2026 BeejHealth Technologies Pvt. Ltd. सर्वाधिकार सुरक्षित।',
+          madeWith: 'भारतीय किसानों के लिए बनाया गया।',
+        },
+      },
+    },
+  },
+  mr: {
+    translation: {
+      common: { language: 'भाषा', languages: { en: 'इंग्रजी', hi: 'हिंदी', mr: 'मराठी' } },
+      nav: {
+        publicLinks: [
+          { id: 'consultation', label: 'पीक सल्ला' },
+          { id: 'experts', label: 'तज्ञ' },
+          { id: 'support', label: 'सपोर्ट' },
+        ],
+        auth: { login: 'लॉगिन', register: 'नोंदणी' },
+      },
+      home: {
+        hero: {
+          badge: 'भारताचा #1 AI शेती प्लॅटफॉर्म - 50,000+ शेतकऱ्यांचा विश्वास',
+          titleLine1: 'तुमच्या पिकाला',
+          titleLine2: 'स्मार्ट बनवा',
+          description: 'BeejHealth तुम्हाला AI द्वारे त्वरित पीक रोग ओळखणे, प्रमाणित तज्ञांशी थेट सल्ला घेणे, हवामान सूचना मिळवणे आणि शेतीचे डिजिटल व्यवस्थापन करणे सोपे करते.',
+          descriptionStrong: 'मोफत सुरुवात करा.',
+          primaryCta: 'मोफत पीक स्कॅन',
+          secondaryCta: 'तज्ञ शोधा',
+          trustBadges: ['100% सुरक्षित', 'ICAR प्रमाणित', '3 भाषा', 'ऑफलाइन चालते'],
+          stats: [
+            { value: '50K+', label: 'शेतकरी' },
+            { value: '200+', label: 'तज्ञ' },
+            { value: '94%', label: 'अचूकता' },
+            { value: 'Rs 12Cr+', label: 'बचत' },
+          ],
+          demo: {
+            label: 'लाइव्ह AI विश्लेषण डेमो',
+            crop: 'नारळ - पलक्कड, केरळ',
+            title: 'बड रॉट आढळले',
+            subtitle: 'Phytophthora palmivora - टप्पा 4/5',
+            confidence: 'AI विश्वास',
+            urgency: 'उपचार तातडी',
+            urgencyValue: 'उच्च',
+            tags: ['गंभीर', 'EfficientNetV2-S', 'तज्ञ नेमलेला'],
+            medicine: 'Ridomil MZ 72 WP - त्वरित वापरा',
+            primaryCta: 'मोफत स्कॅन वापरून पाहा',
+            secondaryCta: 'तज्ञ बुक करा',
+            liveStatus: '23 शेतकरी सध्या ऑनलाइन - 4 तज्ञ उपलब्ध',
+          },
+        },
+        achievements: [
+          { icon: '👨‍🌾', value: '50K+', label: 'सक्रिय शेतकरी' },
+          { icon: '👨‍⚕️', value: '200+', label: 'प्रमाणित तज्ञ' },
+          { icon: '🎯', value: '94.3%', label: 'AI अचूकता' },
+          { icon: '🦠', value: '58+', label: 'रोग प्रकार' },
+          { icon: '🌾', value: '17', label: 'समर्थित पिके' },
+          { icon: '💰', value: 'Rs 12Cr+', label: 'शेतकरी बचत' },
+          { icon: '⭐', value: '4.9', label: 'अॅप रेटिंग' },
+          { icon: '🕐', value: '24/7', label: 'तज्ञ सपोर्ट' },
+        ],
+        howItWorks: {
+          title: 'हे कसे काम करते',
+          subtitle: '3 सोपे टप्पे - 30 सेकंदांत AI निदान',
+          cta: 'आता सुरू करा - मोफत',
+          steps: [
+            { number: '01', icon: '📸', title: 'फोटो घ्या किंवा अपलोड करा', description: 'पिकाचा स्वच्छ फोटो काढा किंवा गॅलरीतून अपलोड करा.', color: 'var(--g4)', bg: 'var(--gp)' },
+            { number: '02', icon: '🤖', title: 'त्वरित AI निदान मिळवा', description: 'EfficientNetV2 मॉडेल काही सेकंदांत रोग ओळखते.', color: 'var(--b3)', bg: 'var(--bp)' },
+            { number: '03', icon: '👨‍⚕️', title: 'तज्ञांचे मार्गदर्शन घ्या', description: 'प्रमाणित कृषी तज्ञ उपचार योजना शेअर करतात.', color: 'var(--a2)', bg: 'var(--ap)' },
+          ],
+        },
+        features: {
+          title: 'पूर्ण शेती प्लॅटफॉर्म',
+          subtitle: 'AI, तज्ञ, हवामान, बाजार आणि रोबोट - सर्व काही एका अॅपमध्ये',
+          items: [
+            { icon: '🤖', title: 'AI रोग ओळख', description: 'भारतीय पिकांमधील रोगांची जलद ओळख.', tag: 'मोफत', bg: 'var(--gp)', tc: 'var(--g3)' },
+            { icon: '👨‍⚕️', title: 'प्रमाणित तज्ञ नेटवर्क', description: 'सत्यापित कृषी तज्ञांशी थेट बोला.', tag: 'Rs 300+', bg: 'var(--bp)', tc: 'var(--b2)' },
+            { icon: '🥥', title: 'नारळ तज्ज्ञ AI', description: 'नारळ रोगांसाठी खास मॉडेल.', tag: 'नवीन', bg: 'var(--ap)', tc: 'var(--a1)' },
+            { icon: '🌦️', title: 'हवामान माहिती', description: 'स्थानिक हवामानासह रोग सूचना आणि स्प्रे वेळ.', tag: 'लाईव्ह', bg: 'var(--tp)', tc: 'var(--t2)' },
+            { icon: '📊', title: 'फार्म अॅनालिटिक्स', description: 'पीक इतिहास आणि शेत स्थिती एका ठिकाणी पाहा.', tag: 'प्रो', bg: 'var(--pup)', tc: 'var(--pu)' },
+            { icon: '🛒', title: 'AgriMart + भाव ट्रॅकर', description: 'शिफारस केलेली उत्पादने आणि बाजारभाव ट्रॅक करा.', tag: 'लाईव्ह', bg: 'var(--gp)', tc: 'var(--g3)' },
+          ],
+        },
+        testimonials: {
+          title: 'शेतकऱ्यांच्या गोष्टी',
+          subtitle: 'देशभरातील शेतकरी BeejHealth वापरून आपली पिके वाचवत आहेत',
+          items: [
+            { name: 'रमेश पाटील', location: 'पुणे, महाराष्ट्र', crop: 'टोमॅटो', text: 'AI ने रोग लवकर ओळखला आणि माझा टोमॅटो पिक वाचवण्यात मदत केली.', savedLabel: 'बचत', savedValue: 'Rs 45,000' },
+            { name: 'कविता देवी', location: 'सोलापूर, महाराष्ट्र', crop: 'कापूस', text: 'एक फोटो अपलोड केल्यावर एका मिनिटाच्या आत उपयोगी रिपोर्ट मिळाला.', savedLabel: 'बचत', savedValue: 'Rs 62,000' },
+            { name: 'प्रिया शिंदे', location: 'नाशिक, महाराष्ट्र', crop: 'द्राक्ष', text: 'स्कॅन आणि तज्ज्ञ सल्ल्यामुळे या हंगामात गुणवत्ता टिकवता आली.', savedLabel: 'बचत', savedValue: 'Rs 1,20,000' },
+          ],
+        },
+        crops: {
+          title: 'पीक कव्हरेज',
+          subtitle: 'मुख्य पिकांसाठी रोग डेटाबेस आणि उपचार सहाय्य',
+          items: [
+            { icon: '🍅', name: 'टोमॅटो', count: '58 रोग' },
+            { icon: '🌾', name: 'गहू', count: '24 रोग' },
+            { icon: '🥔', name: 'बटाटा', count: '31 रोग' },
+            { icon: '🌸', name: 'कापूस', count: '28 रोग' },
+            { icon: '🌽', name: 'मका', count: '22 रोग' },
+            { icon: '🥥', name: 'नारळ', count: '8 AI वर्ग', tag: 'नवीन' },
+          ],
+        },
+        team: {
+          title: 'आमची टीम',
+          subtitle: 'वैज्ञानिक, अभियंते आणि फील्ड तज्ञ मिळून उत्तम शेती साधने तयार करत आहेत',
+          items: [
+            { initials: 'AS', name: 'डॉ. अंजली शर्मा', role: 'संस्थापक आणि CEO', description: 'कृषी AI संशोधनातील 15 वर्षांचा अनुभव', bg: 'var(--g4)' },
+            { initials: 'RM', name: 'राहुल मेहता', role: 'CTO', description: 'ML आणि कंप्युटर व्हिजन प्रणालींवर लक्ष', bg: 'var(--b3)' },
+            { initials: 'PN', name: 'डॉ. प्रिया नायर', role: 'मुख्य कृषी अधिकारी', description: 'वनस्पती रोगशास्त्र तज्ज्ञ', bg: 'var(--a2)' },
+            { initials: 'VS', name: 'विक्रम सिंह', role: 'ऑपरेशन्स प्रमुख', description: 'ग्रामीण नेटवर्क आणि शेतकरी ऑपरेशन्स अनुभव', bg: 'var(--g3)' },
+          ],
+        },
+        faqs: {
+          title: 'वारंवार विचारले जाणारे प्रश्न',
+          subtitle: 'सर्वात सामान्य प्रश्नांची उत्तरे',
+          items: [
+            { question: 'BeejHealth कसे काम करते?', answer: 'तुम्ही पिकाचा फोटो अपलोड करता, AI त्याचे विश्लेषण करते आणि गरज असल्यास तज्ञ पुढील मार्गदर्शन करतात.' },
+            { question: 'हे मोफत आहे का?', answer: 'बेसिक AI स्कॅन मोफत आहे. काही तज्ञ सेवा आणि प्रगत सुविधा सशुल्क आहेत.' },
+            { question: 'कोणती पिके समर्थित आहेत?', answer: 'टोमॅटो, गहू, कापूस, मका, द्राक्ष आणि नारळसह अनेक प्रमुख पिके समर्थित आहेत.' },
+            { question: 'माझा डेटा सुरक्षित आहे का?', answer: 'होय. तुमचे फोटो आणि शेतीची माहिती खाजगी डेटाप्रमाणे हाताळली जाते.' },
+          ],
+        },
+        contact: {
+          title: 'आमच्याशी बोला',
+          subtitle: 'तुम्ही शेतकरी, तज्ञ किंवा व्यवसाय भागीदार असाल तरी आमची टीम मदतीसाठी तयार आहे.',
+          info: [
+            { icon: '📧', title: 'ईमेल', value: 'support@beejhealth.com' },
+            { icon: '📱', title: 'व्हॉट्सअॅप / फोन', value: '+91 98765 43210' },
+            { icon: '📍', title: 'ऑफिस', value: 'बांद्रा कुर्ला कॉम्प्लेक्स, मुंबई, महाराष्ट्र 400051' },
+            { icon: '🕐', title: 'सपोर्ट वेळ', value: 'सोम-शनि: सकाळी 8 ते रात्री 8 IST' },
+          ],
+          socialLabel: 'सोशल मीडिया',
+          formTitle: 'चौकशी फॉर्म',
+          doneTitle: 'संदेश पाठवला',
+          doneText: 'आमची टीम 24 तासांत तुमच्याशी संपर्क करेल.',
+          doneAction: 'पुन्हा पाठवा',
+          typeLabel: 'तुम्ही कोण आहात?',
+          typeOptions: [
+            { value: 'farmer', label: 'शेतकरी' },
+            { value: 'expert', label: 'तज्ञ बना' },
+            { value: 'business', label: 'व्यवसाय' },
+          ],
+          name: 'नाव',
+          mobile: 'मोबाइल',
+          email: 'ईमेल',
+          company: 'कंपनी / फार्म',
+          subject: 'विषय',
+          message: 'संदेश',
+          namePlaceholder: 'तुमचे पूर्ण नाव',
+          mobilePlaceholder: '10 अंकी मोबाइल नंबर',
+          emailPlaceholder: 'email@example.com',
+          companyPlaceholder: 'ऐच्छिक',
+          messagePlaceholder: 'तुमचा प्रश्न किंवा संदेश लिहा...',
+          topics: ['-- विषय निवडा --', 'पीक रोग मदत', 'तज्ञ नोंदणी', 'B2B / बल्क पार्टनरशिप', 'गुंतवणूक / फंडिंग', 'तांत्रिक सपोर्ट', 'मीडिया / प्रेस', 'इतर'],
+          submit: 'संदेश पाठवा',
+          privacy: 'तुमची माहिती सुरक्षित आहे.',
+          alertRequired: 'कृपया नाव आणि संदेश भरा.',
+        },
+        cta: {
+          title: 'आजच सुरुवात करा',
+          subtitle: 'AI स्कॅन आणि तज्ञ मदतीसाठी BeejHealth वापरणाऱ्या हजारो शेतकऱ्यांमध्ये सामील व्हा.',
+          primary: 'मोफत पीक स्कॅन',
+          secondary: 'नोंदणी',
+          note: 'क्रेडिट कार्डची गरज नाही - बेसिक प्रवेश मोफत',
+        },
+        footer: {
+          description: 'पीक रोग ओळख, तज्ञ सल्ला आणि हवामान मार्गदर्शनासाठी भारताचा AI शेती प्लॅटफॉर्म.',
+          certifiedBy: 'प्रमाणित',
+          columns: [
+            { title: 'प्लॅटफॉर्म', items: ['AI स्कॅन', 'तज्ञ सल्ला', 'पीक अंदाज', 'AgriMart', 'विमा', 'रोबोट फ्लीट'] },
+            { title: 'कंपनी', items: ['आमच्याबद्दल', 'आमची टीम', 'करिअर', 'प्रेस आणि मीडिया', 'ब्लॉग', 'गुंतवणूकदार'] },
+            { title: 'सपोर्ट', items: ['हेल्प सेंटर', 'व्हिडिओ ट्युटोरियल', 'सेवा अटी', 'गोपनीयता धोरण', 'रिफंड धोरण', 'API डॉक्स'] },
+            { title: 'संपर्क', items: ['support@beejhealth.com', '+91 98765 43210', 'व्हॉट्सअॅप सपोर्ट', 'मुंबई, महाराष्ट्र', 'सोम-शनि 8AM-8PM', 'आपत्कालीन: 24/7'] },
+          ],
+          copyright: '© 2026 BeejHealth Technologies Pvt. Ltd. सर्व हक्क राखीव.',
+          madeWith: 'भारतीय शेतकऱ्यांसाठी तयार केलेले.',
+        },
+      },
+    },
+  },
+};
+
+i18n.use(initReactI18next).init({
+  resources,
+  lng: savedLanguage,
+  fallbackLng: 'en',
+  interpolation: { escapeValue: false },
+});
+
+i18n.on('languageChanged', (lng) => {
+  try {
+    localStorage.setItem('bh_language', lng);
+  } catch {}
+  if (typeof document !== 'undefined') document.documentElement.lang = lng;
+});
+
+if (typeof document !== 'undefined') document.documentElement.lang = i18n.language;
+
+export default i18n;

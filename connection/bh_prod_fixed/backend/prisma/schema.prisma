@@ -1,0 +1,194 @@
+// schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id         String   @id @default(uuid())
+  name       String
+  mobile     String   @unique
+  district   String?
+  taluka     String?
+  village    String?
+  soil       String?
+  farmSize   Float?
+  irrigation String?
+  crops      String[]
+  email      String?
+  password   String
+  type       String   @default("farmer") // 'farmer' | 'expert'
+  initials   String?
+  verified   Boolean  @default(false)
+  available  Boolean  @default(false)
+  rating     Float    @default(0)
+  totalCases Int      @default(0)
+  bio        String?
+  langs      String?
+  spec       String?
+  fee        Float    @default(0)
+  university String?
+  expYrs     Int      @default(0)
+  state      String?
+  createdAt  DateTime @default(now())
+  lastLogin  DateTime @default(now())
+
+  // Relationships
+  farmerConsultations Consultation[] @relation("FarmerConsultations")
+  expertConsultations Consultation[] @relation("ExpertConsultations")
+  notifications       Notification[]
+  photos              Photo[]
+  sentChats           Chat[]
+  robots              Robot[]
+  sprayJobs           SprayJob[]
+  robotLogs           RobotLog[]
+}
+
+model Consultation {
+  id            String   @id @default(uuid())
+  farmerId      String
+  expertId      String?
+  expertName    String?
+  cropId        String?
+  cropName      String?
+  cropEmoji     String?
+  method        String?
+  photoUploaded Boolean  @default(false)
+  answers       Json?
+  disease       String?
+  disease_hindi String?
+  confidence    Float?
+  severity      Int?
+  is_healthy    Boolean  @default(false)
+  urgency       String?
+  ai_description String?
+  ai_treatments Json?
+  ai_top3       Json?
+  ai_model      String?
+  coconut_only  Boolean  @default(false)
+  status        String   @default("pending")
+  report        String?
+  reportSnapshot Json?
+  reportGeneratedAt DateTime?
+  reportDownloadedAt DateTime?
+  aiReportSummary String?
+  photoCount    Int      @default(0)
+  photoId       String?
+  photoUrl      String?
+  photoIds      String[]
+  photoUrls     String[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  farmer        User     @relation("FarmerConsultations", fields: [farmerId], references: [id])
+  expert        User?    @relation("ExpertConsultations", fields: [expertId], references: [id])
+  notifications Notification[]
+  photos        Photo[]
+  chats         Chat[]
+}
+
+model Photo {
+  id             String   @id @default(uuid())
+  photoId        String   @unique
+  userId         String
+  consultationId String?
+  type           String   @default("image/jpeg")
+  base64         String   @db.Text
+  index          Int      @default(0)
+  totalExpected  Int      @default(1)
+  sizeKB         Int      @default(0)
+  url            String?
+  createdAt      DateTime @default(now())
+
+  user         User          @relation(fields: [userId], references: [id])
+  consultation Consultation? @relation(fields: [consultationId], references: [id])
+}
+
+model Chat {
+  id             String   @id @default(uuid())
+  consultationId String
+  senderId       String
+  senderName     String?
+  senderType     String?
+  text           String
+  createdAt      DateTime @default(now())
+
+  consultation   Consultation @relation(fields: [consultationId], references: [id])
+  sender         User         @relation(fields: [senderId], references: [id])
+}
+
+model Notification {
+  id             String   @id @default(uuid())
+  userId         String
+  type           String
+  icon           String?
+  title          String
+  body           String
+  read           Boolean  @default(false)
+  consultationId String?
+  createdAt      DateTime @default(now())
+
+  user         User          @relation(fields: [userId], references: [id])
+  consultation Consultation? @relation(fields: [consultationId], references: [id])
+}
+
+model Robot {
+  id        String   @id @default(uuid())
+  robotId   String   @unique
+  name      String
+  type      String
+  model     String
+  status    String   @default("offline")
+  battery   Int      @default(0)
+  signal    Int      @default(0)
+  field     String?
+  task      String?
+  emoji     String?
+  sprayArea Float    @default(0)
+  flights   Int      @default(0)
+  totalArea String?
+  ownerId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lastSeen  String?
+
+  owner     User       @relation(fields: [ownerId], references: [id])
+  sprayJobs SprayJob[]
+  logs      RobotLog[]
+}
+
+model SprayJob {
+  id          String   @id @default(uuid())
+  jobId       String   @unique
+  robotId     String
+  field       String
+  crop        String
+  chemical    String
+  dose        Float
+  area        Float
+  status      String   @default("scheduled")
+  scheduledAt DateTime
+  priority    String   @default("med")
+  disease     String?
+  ownerId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  robot       Robot    @relation(fields: [robotId], references: [robotId])
+  owner       User     @relation(fields: [ownerId], references: [id])
+}
+
+model RobotLog {
+  id        String   @id @default(uuid())
+  robotId   String
+  ownerId   String
+  event     String
+  level     String   @default("info")
+  createdAt DateTime @default(now())
+
+  robot     Robot    @relation(fields: [robotId], references: [robotId])
+  owner     User     @relation(fields: [ownerId], references: [id])
+}

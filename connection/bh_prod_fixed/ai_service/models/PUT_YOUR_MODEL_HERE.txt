@@ -1,0 +1,8 @@
+Yahan apna trained model rakhein:
+
+  Best_Cocunut_model.pth
+
+Google Drive se download karke yahan copy karein:
+  bh_prod_fixed/ai_service/models/Best_Cocunut_model.pth
+
+NOTE: .pth file GitHub pe mat daalna — .gitignore mein already hai.
