@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+.env.*
+!.env.example
+.git
+.gitignore
+*.md
+build_error.txt
+fix.cjs
+script.cjs
+script.js
+script.py

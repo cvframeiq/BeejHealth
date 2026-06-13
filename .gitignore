@@ -172,3 +172,22 @@ cython_debug/
 
 # MacOS specific
 .DS_Store/
+
+# ── Node.js ──────────────────────────────────────────────────
+node_modules/
+backend/data/*.db
+frontend/dist/
+
+# ── AI service model files (too large for GitHub) ────────────
+ai_service/models/*.pth
+ai_service/models/*.pt
+ai_service/models/*.onnx
+ai_service/models/*.bin
+ai_service/venv/
+ai_service/logs/*.log
+
+# ── Env ──────────────────────────────────────────────────────
+*.env
+
+# ── OS ───────────────────────────────────────────────────────
+Thumbs.db
