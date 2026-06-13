@@ -5,27 +5,22 @@
  * OR:  node seed.js   (from backend/)
  */
 import bcrypt from 'bcryptjs';
-import {
-  usersDB, consultationsDB, notificationsDB, chatsDB,
-  dbFind, dbFindOne, dbInsert, dbRemove,
-} from './db.js';
+import { prisma } from './db.js';
 
-const ts   = (daysAgo = 0) => new Date(Date.now() - daysAgo * 86400000).toISOString();
+const ts   = (daysAgo = 0) => new Date(Date.now() - daysAgo * 86400000);
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
 
 console.log('\n🌱 ════════════════════════════════════════');
 console.log('   BeejHealth Seed Script');
 console.log('🌱 ════════════════════════════════════════\n');
 
-await wait(600); /* DB load hone do */
+await wait(600); /* DB connect hone do */
 
 /* ── Clear existing data ─────────────────────────────────────── */
-await Promise.all([
-  dbRemove(usersDB,         {}, { multi: true }),
-  dbRemove(consultationsDB, {}, { multi: true }),
-  dbRemove(notificationsDB, {}, { multi: true }),
-  dbRemove(chatsDB,         {}, { multi: true }),
-]);
+await prisma.chat.deleteMany({});
+await prisma.notification.deleteMany({});
+await prisma.consultation.deleteMany({});
+await prisma.user.deleteMany({});
 console.log('🗑️  Purana data clear ho gaya\n');
 
 /* ═══════════════════════════════════════════════════════════════
@@ -43,20 +38,16 @@ console.log('👨‍🌾 Farmers create ho rahe hain...');
 const farmers = [];
 for (const f of FARMERS_DATA) {
   const h = await bcrypt.hash('farmer123', 10);
-  const u = await dbInsert(usersDB, {
-    ...f, password: h, type: 'farmer',
-    initials:   f.name.split(' ').map(w => w[0]).join('').toUpperCase(),
-    verified:   true,
-    available:  false,
-    rating:     0,
-    totalCases: 0,
-    bio:        '',
-    langs:      'Hindi, Marathi',
-    spec:       '',
-    fee:        0,
-    university: '',
-    createdAt:  ts(Math.floor(Math.random() * 30)),
-    lastLogin:  ts(),
+  const u = await prisma.user.create({
+    data: {
+      ...f, password: h, type: 'farmer',
+      initials:  f.name.split(' ').map(w => w[0]).join('').toUpperCase(),
+      verified:  true,
+      available: false,
+      langs:     'Hindi, Marathi',
+      createdAt: ts(Math.floor(Math.random() * 30)),
+      lastLogin: ts(),
+    },
   });
   farmers.push(u);
   console.log(`  ✅ ${f.name.padEnd(16)} | 📱 ${f.mobile} | 🔑 farmer123`);
@@ -78,17 +69,16 @@ console.log('\n👨‍⚕️  Experts create ho rahe hain...');
 const experts = [];
 for (const e of EXPERTS_DATA) {
   const h = await bcrypt.hash('expert123', 10);
-  const u = await dbInsert(usersDB, {
-    ...e, password: h, type: 'expert',
-    initials: e.name.replace('Dr. ','').replace('Prof. ','').split(' ').map(w => w[0]).join('').toUpperCase(),
-    verified: true,
-    email:    `${e.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,10)}@expert.com`,
-    village:  '',
-    taluka:   '',
-    soil:     '',
-    crops:    [],
-    createdAt: ts(Math.floor(Math.random() * 60)),
-    lastLogin: ts(),
+  const u = await prisma.user.create({
+    data: {
+      ...e, password: h, type: 'expert',
+      initials: e.name.replace('Dr. ','').replace('Prof. ','').split(' ').map(w => w[0]).join('').toUpperCase(),
+      verified: true,
+      email:    `${e.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,10)}@expert.com`,
+      crops:    [],
+      createdAt: ts(Math.floor(Math.random() * 60)),
+      lastLogin: ts(),
+    },
   });
   experts.push(u);
   const status = e.available ? '🟢 Online' : '🔴 Offline';
@@ -154,69 +144,76 @@ const CONSULT_SAMPLES = [
 ];
 
 console.log('\n📋 Consultations create ho rahe hain...');
-const createdConsults = [];
 for (const s of CONSULT_SAMPLES) {
   const farmer = farmers[s.fi];
   const expert = experts[s.ei];
-  const c = await dbInsert(consultationsDB, {
-    farmerId:      farmer._id,
-    expertId:      expert._id,
-    expertName:    expert.name,
-    cropId:        s.cropId,
-    cropName:      s.cropName,
-    cropEmoji:     s.cropEmoji,
-    method:        'photo',
-    photoUploaded: true,
-    answers:       s.answers,
-    disease:       s.disease,
-    confidence:    s.confidence,
-    severity:      s.severity,
-    status:        s.status,
-    report:        s.report,
-    createdAt:     ts(s.daysAgo),
-    updatedAt:     ts(s.status === 'completed' ? s.daysAgo - 1 : s.daysAgo),
+  const c = await prisma.consultation.create({
+    data: {
+      farmerId:      farmer.id,
+      expertId:      expert.id,
+      expertName:    expert.name,
+      cropId:        s.cropId,
+      cropName:      s.cropName,
+      cropEmoji:     s.cropEmoji,
+      method:        'photo',
+      photoUploaded: true,
+      answers:       s.answers,
+      disease:       s.disease,
+      confidence:    s.confidence,
+      severity:      s.severity,
+      status:        s.status,
+      report:        s.report,
+      createdAt:     ts(s.daysAgo),
+    },
   });
-  createdConsults.push(c);
 
   /* Chat messages */
   let chatDelta = s.daysAgo * 3600;
   for (const msg of (s.chat || [])) {
-    const senderId   = msg.from === 'expert' ? expert._id   : farmer._id;
-    const senderName = msg.from === 'expert' ? expert.name  : farmer.name;
-    await dbInsert(chatsDB, {
-      consultationId: c._id,
-      senderId,
-      senderName,
-      senderType: msg.from,
-      text:       msg.text,
-      createdAt:  new Date(Date.now() - chatDelta * 1000).toISOString(),
+    const senderId   = msg.from === 'expert' ? expert.id   : farmer.id;
+    const senderName = msg.from === 'expert' ? expert.name : farmer.name;
+    await prisma.chat.create({
+      data: {
+        consultationId: c.id,
+        senderId,
+        senderName,
+        senderType: msg.from,
+        text:       msg.text,
+        createdAt:  new Date(Date.now() - chatDelta * 1000),
+      },
     });
     chatDelta -= 1800;
   }
 
   /* Notifications */
-  await dbInsert(notificationsDB, {
-    userId: farmer._id, type: 'consultation', icon: '🔬',
-    title:  `AI Report Ready — ${s.cropName}`,
-    body:   `${s.disease} detected (${s.confidence}% confidence). ${expert.name} assigned.`,
-    read:   s.status === 'completed',
-    consultationId: c._id, createdAt: ts(s.daysAgo),
+  await prisma.notification.create({
+    data: {
+      userId: farmer.id, type: 'consultation', icon: '🔬',
+      title:  `AI Report Ready — ${s.cropName}`,
+      body:   `${s.disease} detected (${s.confidence}% confidence). ${expert.name} assigned.`,
+      read:   s.status === 'completed',
+      consultationId: c.id, createdAt: ts(s.daysAgo),
+    },
   });
   if (s.status === 'completed') {
-    await dbInsert(notificationsDB, {
-      userId: farmer._id, type: 'report_ready', icon: '✅',
-      title:  `Expert Report Ready — ${s.cropName}!`,
-      body:   `${expert.name} ne aapki ${s.cropName} ki report bhej di.`,
-      read:   false, consultationId: c._id,
-      createdAt: ts(s.daysAgo - 1),
+    await prisma.notification.create({
+      data: {
+        userId: farmer.id, type: 'report_ready', icon: '✅',
+        title:  `Expert Report Ready — ${s.cropName}!`,
+        body:   `${expert.name} ne aapki ${s.cropName} ki report bhej di.`,
+        read:   false, consultationId: c.id,
+        createdAt: ts(s.daysAgo - 1),
+      },
     });
   }
-  await dbInsert(notificationsDB, {
-    userId: expert._id, type: 'new_case', icon: '📋',
-    title:  `Naya Case — ${s.cropName}`,
-    body:   `${s.disease} suspected from ${farmer.name}.`,
-    read:   s.status !== 'pending',
-    consultationId: c._id, createdAt: ts(s.daysAgo),
+  await prisma.notification.create({
+    data: {
+      userId: expert.id, type: 'new_case', icon: '📋',
+      title:  `Naya Case — ${s.cropName}`,
+      body:   `${s.disease} suspected from ${farmer.name}.`,
+      read:   s.status !== 'pending',
+      consultationId: c.id, createdAt: ts(s.daysAgo),
+    },
   });
 
   const status = s.status.replace('_', ' ');
@@ -242,4 +239,5 @@ EXPERTS_DATA.forEach(e => {
 console.log('\n🔑 OTP LOGIN: Koi bhi 6-digit number chalega (e.g. 123456)');
 console.log('🌱 ════════════════════════════════════════\n');
 
+await prisma.$disconnect();
 process.exit(0);
