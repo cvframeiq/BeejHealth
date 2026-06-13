@@ -9,6 +9,10 @@ export default defineConfig({
       '/api': { target: 'http://localhost:3000', changeOrigin: true }
     }
   },
+  preview: {
+    // vite preview blocks unknown Host headers; allow the prod domain(s).
+    allowedHosts: ['beejhealth.cvframeiq.com']
+  },
   build: {
     outDir: 'dist',
     sourcemap: false,

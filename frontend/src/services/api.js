@@ -1,5 +1,8 @@
 export const API = {
-  BASE: "",   // Vite proxy handles /api → localhost:3000 in dev
+  // Same-origin "/api" by default — the Vite dev proxy (dev) or a reverse
+  // proxy like Dokploy/nginx (prod) routes it to the backend.
+  // Set VITE_API_URL at build time for cross-origin deploys (needs CORS).
+  BASE: import.meta.env.VITE_API_URL || "",
   _headers(isJson = false) {
     const token = localStorage.getItem("bh_token");
     const h = {};
